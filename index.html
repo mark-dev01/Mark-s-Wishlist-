@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Mark’s Christmas Wishlist.">
+<meta name="robots" content="noindex">
+<title>Mark’s Christmas Wishlist</title>
+<style>
+:root { --title-gold: #ffebac; color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; color: #fff; background: #000; }
+* { box-sizing: border-box; }
+html, body { overflow: hidden; overscroll-behavior: none; }
+body { margin: 0; background: #000; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: linear-gradient(#0002, #0004), url(christmas-background.gif) center bottom / contain no-repeat; }
+@media (prefers-reduced-motion: reduce) {
+  body::before { background-image: linear-gradient(#0002, #0004), url(christmas-still.webp); }
+}
+main {
+  position: fixed; inset: 0; width: min(100%, 620px); margin-inline: auto;
+  display: flex; flex-direction: column;
+}
+.gift-scroll {
+  position: relative; z-index: 1; flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain;
+  scrollbar-width: none; padding-top: calc(var(--heading-height, 125px) + 24px); padding-bottom: 22px;
+}
+.gift-scroll::-webkit-scrollbar { display: none; }
+header {
+  position: absolute; inset: 0 0 auto; text-align: center;
+  padding: clamp(18px, 4svh, 42px) 9px 0;
+  pointer-events: none; user-select: none; -webkit-user-select: none;
+}
+h1 {
+  margin: 0;
+  color: var(--title-gold);
+  font-family: "Baskerville", "Times New Roman", Georgia, serif;
+  font-size: clamp(3.16875rem, 17.55vw, 7.3125rem);
+  font-weight: 400;
+  letter-spacing: -.055em;
+  line-height: .92;
+  text-shadow: 0 0 2px #fff2b7, 0 0 .16em #ffda77e0,
+    0 0 .45em #ffc34fb0, 0 0 .85em #ffa82c85;
+}
+h1 span { font-size: .89em; }
+h1 .title-line {
+  display: block;
+  font-size: min(1em, 13.6vw);
+  text-wrap: balance;
+}
+.showcase { position: relative; --top-clearance: 56px; --art-height: clamp(200px, 47svh, 425px); margin-top: calc(clamp(24px, 5svh, 45px) - var(--top-clearance) - 24px); }
+section { --slide: min(64vw, 355px); display: flex; gap: 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: var(--top-clearance) calc((100% - var(--slide)) / 2) 44px; }
+section::-webkit-scrollbar { display: none; }
+article { position: relative; flex: 0 0 var(--slide); min-width: 0; scroll-snap-align: center; }
+img, .mystery-icon {
+  display: block; width: 100%; height: var(--art-height);
+  position: relative; z-index: 1; object-fit: contain; padding: 0 8px 28px;
+  transform: translate3d(var(--art-x, 0px), var(--art-y, 0px), 0)
+    rotate(var(--art-tilt, 0deg)) scale(var(--art-scale, 1));
+  transform-origin: center bottom;
+  opacity: var(--art-opacity, 1);
+}
+.details {
+  position: relative; background: linear-gradient(145deg, #ffe48730, #ffd85a15), #1b150d1a; color: #fff;
+  border: 1px solid #ffe6a86b; backdrop-filter: blur(2px) saturate(115%);
+  -webkit-backdrop-filter: blur(2px) saturate(115%); padding: 25px 16px 15px;
+  border-radius: 25px; min-height: 179px; margin: 7px 5px 0; display: flex; flex-direction: column;
+  gap: 6px; opacity: var(--panel-opacity, 1);
+  transform: translateY(var(--panel-y, 0px)) scale(var(--panel-scale, 1));
+  box-shadow: 0 12px 22px #0007;
+}
+@media (prefers-reduced-motion: reduce) {
+  img, .mystery-icon, .details { transform: none; opacity: 1; }
+}
+h2 { font-size: clamp(1.05rem, 4.6vw, 1.26rem); font-weight: 730; letter-spacing: -.025em; line-height: 1.13; margin: 0; }
+.details p { font-size: .83rem; margin: 0; color: #ececec; }
+.details .price { order: -1; font-weight: 800; font-size: 1.35rem; color: #fff; letter-spacing: -.035em; }
+.price small { margin-left: 4px; letter-spacing: 0; font-weight: 550; font-size: .7rem; color: #ececec; }
+.details a, .randomize { display: grid; place-items: center; min-height: 44px; margin-top: auto; border-radius: 999px; background: #101010; color: white; text-decoration: none; font-size: .84rem; font-weight: 700; padding: 7px; }
+.details a:hover, .randomize:hover { background: #313131; }
+.controls {
+  position: absolute; z-index: 3; left: 50%; top: calc(var(--top-clearance) + var(--art-height) + 79px);
+  width: min(calc(100% - 24px), 435px); transform: translateX(-50%);
+  display: flex; justify-content: space-between; pointer-events: none;
+}
+.controls button {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border: 0; padding: 0; background: transparent;
+  cursor: pointer; pointer-events: auto;
+  filter: drop-shadow(0 0 2px #fff2b7) drop-shadow(0 0 5px #ffda77b0) drop-shadow(0 0 12px #ffa82c85);
+}
+.controls button::before {
+  content: ""; width: 16px; height: 24px;
+  background: var(--title-gold);
+  clip-path: polygon(15% 0, 100% 50%, 15% 100%, 0 90%, 74% 50%, 0 10%);
+}
+#previous::before { transform: scaleX(-1); }
+a:focus-visible, button:focus-visible, section:focus-visible { outline: 3px solid #e6a841; outline-offset: -3px; }
+.mystery-icon {
+  display: grid; place-items: center; padding-bottom: 28px;
+  font: 400 clamp(6rem, 35vw, 14rem)/1 Baskerville, Georgia, serif;
+  color: var(--title-gold);
+  text-shadow: 0 0 .14em #ffd46cb0, 0 0 .4em #ffa82c66;
+}
+.random-card .details { justify-content: center; }
+.random-card .random-link { margin-top: 6px; }
+.random-card .random-link:not([hidden]) + .randomize { margin-top: 4px; }
+.random-card [hidden] { display: none; }
+.randomize { border: 0; font-family: inherit; cursor: pointer; }
+.randomize[aria-disabled="true"] { cursor: wait; }
+</style>
+</head>
+<body>
+<main>
+<header><h1><span>Mark’s</span><span class="title-line">Christmas Wishlist</span></h1></header>
+<div class="gift-scroll">
+<div class="showcase">
+<section aria-label="Gift carousel" tabindex="0">
+<article><img src="meowth-cutout.webp" alt="Smiling Meowth figurine with gold coins and a red pouch"><div class="details"><h2>Lucky Meowth Figurine</h2><p>Meowth Origin</p><p class="price">₱429</p><a href="https://shopee.ph/product/1540273261/27541321674" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
+<article><img src="arencia-clean.webp" alt="Arencia Vitamin C Booster Shot packaging"><div class="details"><h2>Arencia Vitamin C Booster Shot</h2><p>30 mL</p><p class="price">₱496 <small>after voucher</small></p><a href="https://shopee.ph/product/1370697848/45654350231" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
+<article><img src="athlene.webp" alt="Athlene Active Creatine Monohydrate packaging"><div class="details"><h2>Athlene Active Creatine Monohydrate</h2><p>300 g · 60 servings</p><p class="price">₱525 <small>after voucher</small></p><a href="https://shopee.ph/product/172391538/2825929783" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
+<article class="random-card">
+  <div class="mystery-icon" aria-hidden="true">?</div>
+  <img hidden alt="">
+  <div class="details">
+    <p class="price random-price" hidden></p>
+    <h2 class="random-result" aria-live="polite">Can’t decide?</h2>
+    <a class="random-link" target="_blank" rel="noopener noreferrer" hidden>View on Shopee ↗</a>
+    <button type="button" class="randomize">Randomize</button>
+  </div>
+</article>
+</section>
+<nav class="controls" aria-label="Browse gifts">
+  <button type="button" id="previous" aria-label="Previous gift"></button>
+  <button type="button" id="next" aria-label="Next gift"></button>
+</nav>
+</div>
+</div>
+</main>
+<script>
+const heading = document.querySelector('header');
+const giftScroll = document.querySelector('.gift-scroll');
+function reserveHeadingSpace() {
+  giftScroll.style.setProperty('--heading-height', `${heading.offsetHeight}px`);
+}
+reserveHeadingSpace();
+new ResizeObserver(reserveHeadingSpace).observe(heading);
+
+const carousel = document.querySelector('section');
+const originals = [...carousel.children];
+const count = originals.length;
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let active = count;
+let frame = 0;
+let settleTimer;
+
+function addCopy(gift, prepend) {
+  const copy = gift.cloneNode(true);
+  copy.setAttribute('aria-hidden', 'true');
+  copy.querySelectorAll('a, button').forEach(control => { control.tabIndex = -1; });
+  if (prepend) carousel.prepend(copy);
+  else carousel.append(copy);
+}
+let gifts = originals;
+let initialized = false;
+let starting = false;
+let shuffling = false;
+const choices = originals.filter(gift => !gift.matches('.random-card')).map(gift => ({
+  image: gift.querySelector('img').getAttribute('src'),
+  name: gift.querySelector('h2').textContent,
+  price: gift.querySelector('.price'),
+  url: gift.querySelector('a').href
+}));
+
+const iconsReady = Promise.allSettled(choices.map(({image}) => {
+  const icon = new Image();
+  icon.src = image;
+  return icon.decode();
+}));
+
+function randomIndex(length) {
+  const sample = new Uint32Array(1);
+  const limit = 2 ** 32 - (2 ** 32 % length);
+  do {
+    crypto.getRandomValues(sample);
+  } while (sample[0] >= limit);
+  return sample[0] % length;
+}
+
+carousel.addEventListener('click', async event => {
+  if (!event.target.closest('.randomize') || shuffling) return;
+  const cards = [...carousel.querySelectorAll('.random-card')];
+  const selected = choices[randomIndex(choices.length)];
+
+  function showChoice(choice, result = '') {
+    cards.forEach(card => {
+      card.querySelector('.mystery-icon').hidden = true;
+      const icon = card.querySelector('img');
+      icon.src = choice.image;
+      icon.alt = result ? choice.name : '';
+      icon.hidden = false;
+      card.querySelector('.random-result').textContent = result || 'Can’t decide?';
+      const price = card.querySelector('.random-price');
+      const link = card.querySelector('.random-link');
+      price.hidden = link.hidden = !result;
+      if (result) {
+        price.replaceChildren(...Array.from(choice.price.childNodes, node => node.cloneNode(true)));
+        link.href = choice.url;
+      } else {
+        link.removeAttribute('href');
+      }
+    });
+  }
+
+  if (reducedMotion.matches) {
+    showChoice(selected, selected.name);
+    return;
+  }
+
+  shuffling = true;
+  const buttons = cards.map(card => card.querySelector('.randomize'));
+  buttons.forEach(button => button.setAttribute('aria-disabled', 'true'));
+  await iconsReady;
+  const sequence = [];
+  for (let round = 0; round < 6; round++) {
+    const remaining = [...choices];
+    while (remaining.length) {
+      const eligible = remaining.filter(choice =>
+        choice !== sequence.at(-1));
+      const pick = eligible.length ? eligible[randomIndex(eligible.length)] : remaining[0];
+      sequence.push(pick);
+      remaining.splice(remaining.indexOf(pick), 1);
+    }
+  }
+  if (sequence.at(-1) === selected) sequence.pop();
+  let start;
+  function animate(now) {
+    start ??= now;
+    const step = Math.floor((now - start) / 85);
+    if (step < sequence.length) {
+      if (step !== animate.lastStep) {
+        showChoice(sequence[step]);
+        animate.lastStep = step;
+      }
+      requestAnimationFrame(animate);
+      return;
+    }
+    showChoice(selected, selected.name);
+    buttons.forEach(button => button.removeAttribute('aria-disabled'));
+    shuffling = false;
+  }
+  requestAnimationFrame(animate);
+});
+
+function centerOf(gift) {
+  const rect = gift.getBoundingClientRect();
+  const viewport = carousel.getBoundingClientRect();
+  return carousel.scrollLeft + rect.left + rect.width / 2 - viewport.left - carousel.clientWidth / 2;
+}
+
+function reveal(index, behavior = 'instant') {
+  carousel.scrollTo({left: centerOf(gifts[index]), behavior});
+}
+
+function updatePosition() {
+  frame = 0;
+  const spacing = centerOf(gifts[1]) - centerOf(gifts[0]);
+  if (!spacing) return;
+  const slide = (carousel.scrollLeft - centerOf(gifts[0])) / spacing;
+  active = Math.max(0, Math.min(gifts.length - 1, Math.round(slide)));
+  gifts.forEach((gift, index) => {
+    const offset = Math.max(-1, Math.min(1, index - slide));
+    const distance = Math.abs(offset);
+    gift.style.setProperty('--art-x', `${-offset * spacing * .29}px`);
+    gift.style.setProperty('--art-y', `${distance * 5}px`);
+    gift.style.setProperty('--art-tilt', `${offset * 10}deg`);
+    gift.style.setProperty('--art-scale', 1 - distance * .23);
+    gift.style.setProperty('--art-opacity', 1 - distance * .08);
+    gift.style.setProperty('--panel-y', `${distance * 36}px`);
+    gift.style.setProperty('--panel-scale', 1 - distance * .09);
+    gift.style.setProperty('--panel-opacity', Math.max(0, 1 - distance * 1.8));
+  });
+
+}
+
+function settle() {
+  if (!initialized) return;
+  updatePosition();
+  if (active < count || active >= 2 * count) {
+    reveal(count + active % count);
+    updatePosition();
+  }
+}
+
+function move(direction) {
+  if (!initialized) return;
+  settle();
+  reveal(active + direction, reducedMotion.matches ? 'instant' : 'smooth');
+}
+
+document.querySelector('#previous').addEventListener('click', () => move(-1));
+document.querySelector('#next').addEventListener('click', () => move(1));
+carousel.addEventListener('keydown', event => {
+  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+  event.preventDefault();
+  move(event.key === 'ArrowLeft' ? -1 : 1);
+});
+carousel.addEventListener('scroll', () => {
+  if (!initialized) return;
+  if (!frame) frame = requestAnimationFrame(updatePosition);
+  clearTimeout(settleTimer);
+  settleTimer = setTimeout(settle, 160);
+}, {passive: true});
+carousel.addEventListener('scrollend', () => {
+  clearTimeout(settleTimer);
+  settle();
+});
+function initialize() {
+  if (starting || !carousel.clientWidth) return;
+  starting = true;
+  carousel.style.scrollSnapType = 'none';
+  [...originals].reverse().forEach(gift => addCopy(gift, true));
+  originals.forEach(gift => addCopy(gift, false));
+  gifts = [...carousel.children];
+  carousel.scrollLeft = centerOf(originals[0]);
+  requestAnimationFrame(() => {
+    carousel.scrollLeft = centerOf(originals[0]);
+    carousel.style.removeProperty('scroll-snap-type');
+    initialized = true;
+    updatePosition();
+  });
+}
+window.addEventListener('resize', () => {
+  if (!initialized) {
+    initialize();
+    return;
+  }
+  reveal(count + active % count);
+  updatePosition();
+});
+window.addEventListener('pageshow', initialize);
+requestAnimationFrame(initialize);
+</script>
+</body>
+</html>
