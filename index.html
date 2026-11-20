@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Mark’s Christmas Wishlist.">
+<meta name="description" content="Camille’s Christmas Wishlist.">
 <meta name="robots" content="noindex">
-<title>Mark’s Christmas Wishlist</title>
+<title>Camille’s Christmas Wishlist</title>
 <style>
-:root { --title-gold: #ffebac; color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; color: #fff; background: #000; }
+:root { --title-pink: #ffd4e9; color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; color: #fff; background: #000; }
 * { box-sizing: border-box; }
 html, body { overflow: hidden; overscroll-behavior: none; }
 body { margin: 0; background: #000; }
-body::before { content: ""; position: fixed; inset: 0; pointer-events: none; background: linear-gradient(#0002, #0004), url(christmas-background.gif) center bottom / contain no-repeat; }
-@media (prefers-reduced-motion: reduce) {
-  body::before { background-image: linear-gradient(#0002, #0004), url(christmas-still.webp); }
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, #250f1c80, #160b141a 44%, #190b1966),
+    url(christmas-tree.jpeg) center 58% / cover no-repeat;
 }
 main {
   position: fixed; inset: 0; width: min(100%, 620px); margin-inline: auto;
@@ -31,14 +32,14 @@ header {
 }
 h1 {
   margin: 0;
-  color: var(--title-gold);
+  color: var(--title-pink);
   font-family: "Baskerville", "Times New Roman", Georgia, serif;
   font-size: clamp(3.16875rem, 17.55vw, 7.3125rem);
   font-weight: 400;
   letter-spacing: -.055em;
   line-height: .92;
-  text-shadow: 0 0 2px #fff2b7, 0 0 .16em #ffda77e0,
-    0 0 .45em #ffc34fb0, 0 0 .85em #ffa82c85;
+  text-shadow: 0 0 2px #fff0f7, 0 0 .16em #ff91c4e0,
+    0 0 .45em #f971acb0, 0 0 .85em #f75b9e85;
 }
 h1 span { font-size: .89em; }
 h1 .title-line {
@@ -58,9 +59,10 @@ img, .mystery-icon {
   transform-origin: center bottom;
   opacity: var(--art-opacity, 1);
 }
+article img { filter: drop-shadow(0 0 14px #e684af38); }
 .details {
-  position: relative; background: linear-gradient(145deg, #ffe48730, #ffd85a15), #1b150d1a; color: #fff;
-  border: 1px solid #ffe6a86b; backdrop-filter: blur(2px) saturate(115%);
+  position: relative; background: linear-gradient(145deg, #ff94c84a, #ec5ca52e), #3111248c; color: #fff;
+  border: 1px solid #ffd1e781; backdrop-filter: blur(2px) saturate(115%);
   -webkit-backdrop-filter: blur(2px) saturate(115%); padding: 25px 16px 15px;
   border-radius: 25px; min-height: 179px; margin: 7px 5px 0; display: flex; flex-direction: column;
   gap: 6px; opacity: var(--panel-opacity, 1);
@@ -85,20 +87,20 @@ h2 { font-size: clamp(1.05rem, 4.6vw, 1.26rem); font-weight: 730; letter-spacing
   width: 44px; height: 44px; display: grid; place-items: center;
   border: 0; padding: 0; background: transparent;
   cursor: pointer; pointer-events: auto;
-  filter: drop-shadow(0 0 2px #fff2b7) drop-shadow(0 0 5px #ffda77b0) drop-shadow(0 0 12px #ffa82c85);
+  filter: drop-shadow(0 0 2px #fff0f7) drop-shadow(0 0 5px #ff91c4b0) drop-shadow(0 0 12px #f75b9e85);
 }
 .controls button::before {
   content: ""; width: 16px; height: 24px;
-  background: var(--title-gold);
+  background: var(--title-pink);
   clip-path: polygon(15% 0, 100% 50%, 15% 100%, 0 90%, 74% 50%, 0 10%);
 }
 #previous::before { transform: scaleX(-1); }
-a:focus-visible, button:focus-visible, section:focus-visible { outline: 3px solid #e6a841; outline-offset: -3px; }
+a:focus-visible, button:focus-visible, section:focus-visible { outline: 3px solid #ffadd5; outline-offset: -3px; }
 .mystery-icon {
   display: grid; place-items: center; padding-bottom: 28px;
   font: 400 clamp(6rem, 35vw, 14rem)/1 Baskerville, Georgia, serif;
-  color: var(--title-gold);
-  text-shadow: 0 0 .14em #ffd46cb0, 0 0 .4em #ffa82c66;
+  color: var(--title-pink);
+  text-shadow: 0 0 .14em #ff99c9b0, 0 0 .4em #f75b9e66;
 }
 .random-card .details { justify-content: center; }
 .random-card .random-link { margin-top: 6px; }
@@ -110,13 +112,13 @@ a:focus-visible, button:focus-visible, section:focus-visible { outline: 3px soli
 </head>
 <body>
 <main>
-<header><h1><span>Mark’s</span><span class="title-line">Christmas Wishlist</span></h1></header>
+<header><h1><span>Camille’s</span><span class="title-line">Christmas Wishlist</span></h1></header>
 <div class="gift-scroll">
 <div class="showcase">
 <section aria-label="Gift carousel" tabindex="0">
-<article><img src="meowth-cutout.webp" alt="Smiling Meowth figurine with gold coins and a red pouch"><div class="details"><h2>Lucky Meowth Figurine</h2><p>Meowth Origin</p><p class="price">₱429</p><a href="https://shopee.ph/product/1540273261/27541321674" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
-<article><img src="arencia-clean.webp" alt="Arencia Vitamin C Booster Shot packaging"><div class="details"><h2>Arencia Vitamin C Booster Shot</h2><p>30 mL</p><p class="price">₱496 <small>after voucher</small></p><a href="https://shopee.ph/product/1370697848/45654350231" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
-<article><img src="athlene.webp" alt="Athlene Active Creatine Monohydrate packaging"><div class="details"><h2>Athlene Active Creatine Monohydrate</h2><p>300 g · 60 servings</p><p class="price">₱525 <small>after voucher</small></p><a href="https://shopee.ph/product/172391538/2825929783" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
+<article><img src="bedding.png" alt="Navy Blue Bed Sheet Set"><div class="details"><h2>Navy Blue Bed Sheet Set</h2><p>Navy Blue · Semi-Double</p><p class="price">₱664</p><a href="https://ph.shp.ee/WJB3jS9S" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
+<article><img src="garnier.png" alt="Garnier Vitamin C Brightening Set"><div class="details"><h2>Garnier Vitamin C Brightening Set</h2><p>Brightening Set NEW</p><p class="price">₱515</p><a href="https://ph.shp.ee/LGjEERq2" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
+<article><img src="stool.png" alt="Foldable Storage Ottoman"><div class="details"><h2>Foldable Storage Ottoman</h2><p>Long black</p><p class="price">₱580</p><a href="https://ph.shp.ee/ZDAwvPko" target="_blank" rel="noopener noreferrer">View on Shopee ↗</a></div></article>
 <article class="random-card">
   <div class="mystery-icon" aria-hidden="true">?</div>
   <img hidden alt="">
